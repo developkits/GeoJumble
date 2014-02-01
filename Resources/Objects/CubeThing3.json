@@ -1,0 +1,30 @@
+{
+	"VertexShader":"3dVertexShader",
+	"PixelShader":"FlatPixelShader",
+	"Textures": [
+		"CubeTexture"
+	],
+	"Mesh":"SimpleCube",
+	
+	"World":
+	{
+		"Translation":
+		{
+			"x": 0.0,
+			"y": 0.0,
+			"z": 100.0
+		},
+		"Scale":
+		{
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"Rotation":
+		{
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	}
+}

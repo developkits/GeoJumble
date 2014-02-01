@@ -1,0 +1,30 @@
+{
+	"VertexShader":"3dVertexShader",
+	"PixelShader":"NormalPixelShader",
+	"Textures": [
+		"textureWhite"
+	],
+	"Mesh":"SphereSP",
+	
+	"World":
+	{
+		"Translation":
+		{
+			"x": 0.0,
+			"y": 0.0,
+			"z": 200.0
+		},
+		"Scale":
+		{
+			"x": 5.0,
+			"y": 5.0,
+			"z": 5.0
+		},
+		"Rotation":
+		{
+			"x": -90.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	}
+}

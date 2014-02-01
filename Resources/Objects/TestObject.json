@@ -1,0 +1,35 @@
+{
+	"Name":"Test Object",
+	
+	"Material":
+	{
+		"Name":"Test2DSprite"
+	},
+	
+	"Mesh":
+	{
+		"Name":"Plane"
+	},
+	
+	"Transform":
+	{
+		"Position":
+		{
+			"x": 100.0,
+			"y": 100.0,
+			"z": 0.0
+		},
+		"Scale":
+		{
+			"x": 50.0,
+			"y": 50.0,
+			"z": 1.0
+		},
+		"Rotation":
+		{
+			"x": 1.0,
+			"y": 1.0,
+			"z": 1.0
+		}
+	}
+}

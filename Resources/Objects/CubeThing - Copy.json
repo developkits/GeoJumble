@@ -1,0 +1,31 @@
+{
+	"VertexShader":"3dVertexShader",
+	"PixelShader":"NormalPixelShader",
+	"Textures": [
+		"gadget_dDo_d",
+		"gadget_dDo_n"
+	],
+	"Mesh":"widget",
+	
+	"World":
+	{
+		"Translation":
+		{
+			"x": 0.0,
+			"y": 0.0,
+			"z": 100.0
+		},
+		"Scale":
+		{
+			"x": 1.0,
+			"y": 1.0,
+			"z": 1.0
+		},
+		"Rotation":
+		{
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	}
+}

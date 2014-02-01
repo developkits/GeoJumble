@@ -1,0 +1,119 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{FAF72765-B20B-4441-85CE-1C0E5797729E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{A1C696CE-715D-40C2-9493-AA25AA7B911C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controller", "Controller", "{EC98A2E6-E80F-4DB5-ADA1-3889190B60D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{5406B9AE-0A8A-42E9-AFD0-349ED8CD3200}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Config.ini = Resources\Config.ini
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{44497ADB-DCF6-4145-89B6-8D4BAAC04884}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "View", "Core\View\View.vcxproj", "{FEB50FC0-912F-45AC-B79A-03B08704F107}"
+	ProjectSection(ProjectDependencies) = postProject
+		{206B9E51-8CC8-432C-8A67-EF625826E9D2} = {206B9E51-8CC8-432C-8A67-EF625826E9D2}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Model", "Core\Model\Model.vcxproj", "{206B9E51-8CC8-432C-8A67-EF625826E9D2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Controller", "Core\Controller\Controller.vcxproj", "{6BA21F74-3B39-4FFD-AEAF-F982B9FDF394}"
+	ProjectSection(ProjectDependencies) = postProject
+		{206B9E51-8CC8-432C-8A67-EF625826E9D2} = {206B9E51-8CC8-432C-8A67-EF625826E9D2}
+		{FEB50FC0-912F-45AC-B79A-03B08704F107} = {FEB50FC0-912F-45AC-B79A-03B08704F107}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "inc", "inc", "{7EF802C1-75DB-49D8-82EC-E757D3CF16F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{B1742176-89DE-4846-9CDF-A3F9765C84EB}"
+	ProjectSection(SolutionItems) = preProject
+		External\lib\DirectXTK.lib = External\lib\DirectXTK.lib
+		External\lib\jsoncpp.lib = External\lib\jsoncpp.lib
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Json", "Json", "{A441763C-168E-44A5-B3BC-2657E34D85BF}"
+	ProjectSection(SolutionItems) = preProject
+		External\inc\Json\assertions.h = External\inc\Json\assertions.h
+		External\inc\Json\autolink.h = External\inc\Json\autolink.h
+		External\inc\Json\config.h = External\inc\Json\config.h
+		External\inc\Json\features.h = External\inc\Json\features.h
+		External\inc\Json\forwards.h = External\inc\Json\forwards.h
+		External\inc\Json\json.h = External\inc\Json\json.h
+		External\inc\Json\reader.h = External\inc\Json\reader.h
+		External\inc\Json\value.h = External\inc\Json\value.h
+		External\inc\Json\version.h = External\inc\Json\version.h
+		External\inc\Json\writer.h = External\inc\Json\writer.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DirectXTK", "DirectXTK", "{AA8F3DB7-A81C-4F74-8E40-62FF4DFB6148}"
+	ProjectSection(SolutionItems) = preProject
+		External\inc\DirextXTK\CommonStates.h = External\inc\DirextXTK\CommonStates.h
+		External\inc\DirextXTK\DDSTextureLoader.h = External\inc\DirextXTK\DDSTextureLoader.h
+		External\inc\DirextXTK\Effects.h = External\inc\DirextXTK\Effects.h
+		External\inc\DirextXTK\GeometricPrimitive.h = External\inc\DirextXTK\GeometricPrimitive.h
+		External\inc\DirextXTK\Model.h = External\inc\DirextXTK\Model.h
+		External\inc\DirextXTK\PrimitiveBatch.h = External\inc\DirextXTK\PrimitiveBatch.h
+		External\inc\DirextXTK\ScreenGrab.h = External\inc\DirextXTK\ScreenGrab.h
+		External\inc\DirextXTK\SimpleMath.h = External\inc\DirextXTK\SimpleMath.h
+		External\inc\DirextXTK\SimpleMath.inl = External\inc\DirextXTK\SimpleMath.inl
+		External\inc\DirextXTK\SpriteBatch.h = External\inc\DirextXTK\SpriteBatch.h
+		External\inc\DirextXTK\SpriteFont.h = External\inc\DirextXTK\SpriteFont.h
+		External\inc\DirextXTK\VertexTypes.h = External\inc\DirextXTK\VertexTypes.h
+		External\inc\DirextXTK\WICTextureLoader.h = External\inc\DirextXTK\WICTextureLoader.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{51B0B229-425C-4F19-B900-5BF452B007D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Textures", "Textures", "{3966FBE0-89B1-486E-B906-935D5C07C932}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Textures\image.jpg = Resources\Textures\image.jpg
+		Resources\Textures\sampleImage.png = Resources\Textures\sampleImage.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{BFA4F97A-1558-4351-82D9-4FFD987893B3}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Objects\CubeThing.json = Resources\Objects\CubeThing.json
+		Resources\Objects\MiniThing.json = Resources\Objects\MiniThing.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEB50FC0-912F-45AC-B79A-03B08704F107}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FEB50FC0-912F-45AC-B79A-03B08704F107}.Debug|Win32.Build.0 = Debug|Win32
+		{FEB50FC0-912F-45AC-B79A-03B08704F107}.Release|Win32.ActiveCfg = Release|Win32
+		{FEB50FC0-912F-45AC-B79A-03B08704F107}.Release|Win32.Build.0 = Release|Win32
+		{206B9E51-8CC8-432C-8A67-EF625826E9D2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{206B9E51-8CC8-432C-8A67-EF625826E9D2}.Debug|Win32.Build.0 = Debug|Win32
+		{206B9E51-8CC8-432C-8A67-EF625826E9D2}.Release|Win32.ActiveCfg = Release|Win32
+		{206B9E51-8CC8-432C-8A67-EF625826E9D2}.Release|Win32.Build.0 = Release|Win32
+		{6BA21F74-3B39-4FFD-AEAF-F982B9FDF394}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6BA21F74-3B39-4FFD-AEAF-F982B9FDF394}.Debug|Win32.Build.0 = Debug|Win32
+		{6BA21F74-3B39-4FFD-AEAF-F982B9FDF394}.Release|Win32.ActiveCfg = Release|Win32
+		{6BA21F74-3B39-4FFD-AEAF-F982B9FDF394}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A1C696CE-715D-40C2-9493-AA25AA7B911C} = {51B0B229-425C-4F19-B900-5BF452B007D9}
+		{EC98A2E6-E80F-4DB5-ADA1-3889190B60D7} = {51B0B229-425C-4F19-B900-5BF452B007D9}
+		{FAF72765-B20B-4441-85CE-1C0E5797729E} = {51B0B229-425C-4F19-B900-5BF452B007D9}
+		{FEB50FC0-912F-45AC-B79A-03B08704F107} = {A1C696CE-715D-40C2-9493-AA25AA7B911C}
+		{6BA21F74-3B39-4FFD-AEAF-F982B9FDF394} = {EC98A2E6-E80F-4DB5-ADA1-3889190B60D7}
+		{3966FBE0-89B1-486E-B906-935D5C07C932} = {5406B9AE-0A8A-42E9-AFD0-349ED8CD3200}
+		{BFA4F97A-1558-4351-82D9-4FFD987893B3} = {5406B9AE-0A8A-42E9-AFD0-349ED8CD3200}
+		{7EF802C1-75DB-49D8-82EC-E757D3CF16F9} = {44497ADB-DCF6-4145-89B6-8D4BAAC04884}
+		{B1742176-89DE-4846-9CDF-A3F9765C84EB} = {44497ADB-DCF6-4145-89B6-8D4BAAC04884}
+		{206B9E51-8CC8-432C-8A67-EF625826E9D2} = {FAF72765-B20B-4441-85CE-1C0E5797729E}
+		{A441763C-168E-44A5-B3BC-2657E34D85BF} = {7EF802C1-75DB-49D8-82EC-E757D3CF16F9}
+		{AA8F3DB7-A81C-4F74-8E40-62FF4DFB6148} = {7EF802C1-75DB-49D8-82EC-E757D3CF16F9}
+	EndGlobalSection
+EndGlobal
