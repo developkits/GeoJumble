@@ -13,7 +13,6 @@ struct ViewData
 	string mesh;
 	string vertexShader;
 	string pixelShader;
-	int colorPreference;
 };
 
 struct ViewInput

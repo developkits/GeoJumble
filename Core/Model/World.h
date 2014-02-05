@@ -31,7 +31,6 @@ public:
 	XMFLOAT3 getTrans();
 	XMFLOAT3 getScale();
 	XMVECTOR getRot();
-	XMMATRIX getMat();
 
 private:
 	XMFLOAT3 translation;

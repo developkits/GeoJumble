@@ -29,7 +29,7 @@ struct VertexToPixel
 // Entry point for this pixel shader
 float4 main(VertexToPixel input) : SV_TARGET
 {
-	float4 textureColor = ColorTexture[ 0 ].Sample(TrilinearSampler,input.uv);
+	float4 textureColor = ColorTexture[0].Sample(TrilinearSampler,input.uv);
 	float4 normalMap = ColorTexture[1].Sample(TrilinearSampler,input.uv);
 	normalMap = -((normalMap * 2.0f) - 1.0f);
 	float3 normal = normalize(input.normal + (normalMap.x * input.tangent) + (normalMap.y * input.binormal));

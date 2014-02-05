@@ -31,8 +31,8 @@ void View::DeferredDraw(ViewInput input)
 	const float blue[4] = { 0, 0, 1, 1};
 	const float mag[4] = {1,0,1,1};
 
-	deviceContext->ClearRenderTargetView(backBufferView,mag);
-	deviceContext->ClearRenderTargetView(diffPassView, black);
+	deviceContext->ClearRenderTargetView(backBufferView,purp);
+	deviceContext->ClearRenderTargetView(diffPassView, mag);
 	deviceContext->ClearRenderTargetView(normPassView, black);
 	deviceContext->ClearDepthStencilView(
 		depthStencilView,
@@ -79,16 +79,8 @@ void View::DeferredDraw(ViewInput input)
 		deviceContext->VSSetShader(res.VSMap[obj.vertexShader].shader,NULL,0);
 		deviceContext->PSSetShader(res.PSMap["DeferredPixelShader"].shader, NULL, 0);
 
-		//Set the textures for the Pixel Shader//Set the textures for the Pixel Shader
-		if(obj.colorPreference > 0 && obj.colorPreference < res.TextureMap[obj.texture].numTextures && res.TextureMap[obj.texture].numTextures >= 2)
-		{
-			ID3D11ShaderResourceView** textures = new ID3D11ShaderResourceView*[2];
-			textures[0] = res.TextureMap[obj.texture].textures[obj.colorPreference];
-			textures[1] = res.TextureMap[obj.texture].textures[1];
-			deviceContext->PSSetShaderResources(0, 2 , textures);
-		}
-		else
-			deviceContext->PSSetShaderResources(0,res.TextureMap[obj.texture].numTextures,res.TextureMap[obj.texture].textures);
+		//Set the textures for the Pixel Shader
+		deviceContext->PSSetShaderResources(0,res.TextureMap[obj.texture].numTextures,res.TextureMap[obj.texture].textures);
 
 		//Finally, draw:
 		deviceContext->DrawIndexed(res.MeshMap[obj.mesh].numIndeces,0,0);
@@ -111,7 +103,7 @@ void View::DeferredDraw(ViewInput input)
 	deviceContext->PSSetShaderResources(0,2,deferredTextures);
 	deviceContext->DrawIndexed(res.MeshMap["WindowPlane"].numIndeces,0,0);
 
-	HR(swapChain->Present(0,0));
+	HR(swapChain->Present(0,0))
 }
 
 void View::Draw( ViewInput input)
@@ -162,29 +154,13 @@ void View::Draw( ViewInput input)
 		deviceContext->PSSetShader(res.PSMap[obj.pixelShader].shader, NULL, 0);
 
 		//Set the textures for the Pixel Shader
-		if(obj.colorPreference > 0 && obj.colorPreference < res.TextureMap[obj.texture].numTextures && res.TextureMap[obj.texture].numTextures >= 2)
-		{
-			ID3D11ShaderResourceView** textures = new ID3D11ShaderResourceView*[2];
-			textures[0] = res.TextureMap[obj.texture].textures[obj.colorPreference];
-			textures[1] = res.TextureMap[obj.texture].textures[1];
-			deviceContext->PSSetShaderResources(0, 2 , textures);
-		}
-		else
-			deviceContext->PSSetShaderResources(0,res.TextureMap[obj.texture].numTextures,res.TextureMap[obj.texture].textures);
-
-		/*if(obj.colorPreference != NULL && obj.colorPreference > 0)
-			res.psNormCbufferData.colorPreference = obj.colorPreference;
-		else
-			res.psNormCbufferData.colorPreference = 0;
-			*/
-		deviceContext->UpdateSubresource(res.psNormCbuffer,0,NULL,&(res.psNormCbufferData),0,0);
-
+		deviceContext->PSSetShaderResources(0,res.TextureMap[obj.texture].numTextures,res.TextureMap[obj.texture].textures);
 
 		//Finally, draw:
 		deviceContext->DrawIndexed(res.MeshMap[obj.mesh].numIndeces,0,0);
 
+		HR(swapChain->Present(0,0))
 	}
-	HR(swapChain->Present(0,0))
 }
 
 #pragma region Initialization
@@ -228,7 +204,6 @@ bool View::Init(HINSTANCE hInstance, WNDPROC mainWndProc)
 	InitDeferredRendering();
 	InitConstBuffers();
 
-
 	return true;
 }
 
@@ -269,6 +244,7 @@ bool View::InitWindow(WNDPROC mainWndProc)
 
 	ShowWindow(hMainWnd, SW_SHOW);
 	UpdateWindow(hMainWnd);
+
 	return true;
 }
 
@@ -470,7 +446,7 @@ bool View::InitConstBuffers()
 		&(res.psNormCbuffer)));
 	
 	res.psNormCbufferData.diffuseColor = XMFLOAT4(1.0f,1.0f,1.0f,1.0f);
-	res.psNormCbufferData.lightDirection = XMFLOAT3(0.0f,-.8f,1.0f);
+	res.psNormCbufferData.lightDirection = XMFLOAT3(0.0f,-1.0f,0.0f);
 	deviceContext->UpdateSubresource(res.psNormCbuffer,0,NULL,&(res.psNormCbufferData),0,0);
 	deviceContext->PSSetConstantBuffers(0,1,&(res.psNormCbuffer));
 	
@@ -508,15 +484,6 @@ void View::CalculateFrameStats( float totalTime )
 	}
 }
 
-void View::getWinRect(RECT* target)
-{
-	GetWindowRect(hMainWnd, target);
-}
-
-void View::getCRect(RECT* target)
-{
-	GetClientRect(hMainWnd, target);
-}
 
 #pragma region Window Resizing
 

@@ -77,7 +77,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{BFA4F97A-1558-4351-82D9-4FFD987893B3}"
 	ProjectSection(SolutionItems) = preProject
 		Resources\Objects\CubeThing.json = Resources\Objects\CubeThing.json
-		Resources\Objects\MiniThing.json = Resources\Objects\MiniThing.json
 	EndProjectSection
 EndProject
 Global

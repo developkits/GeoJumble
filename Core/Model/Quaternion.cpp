@@ -185,8 +185,7 @@ float* Quaternion::zAxis() const
 
 void Quaternion::toString() const
 {
-	
-	("W: %f, X: %f, Y: %f, Z: %f\n", w, x, y, z);
+	printf("W: %f, X: %f, Y: %f, Z: %f\n", w, x, y, z);
 }
 
 Quaternion::~Quaternion(void)

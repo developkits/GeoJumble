@@ -80,8 +80,5 @@ public:
 	bool InitDirect3D();
 	bool InitConstBuffers();
 	bool InitDeferredRendering();
-
-	void getWinRect(RECT*);
-	void getCRect(RECT*);
 };
 

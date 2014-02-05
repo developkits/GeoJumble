@@ -80,7 +80,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)Core\Model;$(SolutionDir)\External\inc;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\External\lib;$(LibraryPath)</LibraryPath>
-    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -119,10 +119,6 @@ XMVECTOR World::getRot()
 	return rotation;
 }
 
-XMMATRIX World::getMat()
-{
-	return XMLoadFloat4x4(&world);
-}
 
 void World::rotate(XMVECTOR axis, float angle)
 {

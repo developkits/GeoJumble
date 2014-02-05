@@ -16,5 +16,4 @@ struct PSNormCBuffer
 {
 	XMFLOAT4 diffuseColor;
 	XMFLOAT3 lightDirection;
-	int colorPreference;
 };

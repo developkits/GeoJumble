@@ -4,7 +4,6 @@
 #include "Camera.h"
 #include <dinput.h>
 #include <initguid.h>
-#include <ctime>
 #pragma comment (lib, "dinput8.lib")
 #pragma comment (lib, "dxguid.lib")
 #pragma region Global Window Callback
@@ -62,29 +61,31 @@ Game::~Game(void)
 
 bool Game::Init( HINSTANCE hInstance )
 {
-	srand(time(0));
+	
 	view = new View();
 	game->InitDirectInput(hInstance);
-	gameStates = list<State*>();
-
-	PlayState* mainState = new PlayState(view);
-	Engine* mainEngine = new Engine(view);
+	//gameStates = list<State>();
+	//PlayState mainState = PlayState(game, view, &engine);
 	
+	//if(!mainState.init())
+	//	return 0;
 
 	//gameStates.push_front(mainState);
-	gameStates.push_front(mainEngine);
-	bool viewInit = view->Init(hInstance,MainWndProc);
-	if( !gameStates.front()->init() )
-		return false;
 
-	view->getWinRect(&windowRect);
-
-	return viewInit;
+	return view->Init(hInstance,MainWndProc);
 }
 
 int Game::Run()
 {
-
+	//Let's test some stuff:
+	ViewData cube = ViewDataFromJson("CubeThing");
+	ViewInput input;
+	input.objects = &cube;
+	input.numObjects = 1;
+	CameraClass camera;
+	camera.SetPosition(XMFLOAT3(0,0,0));
+	input.view = camera.QuickLook(cube.world.getTrans(),Y);
+	
 
 	MSG msg = {0};
 	timer.Reset();
@@ -113,14 +114,11 @@ int Game::Run()
 				// Standard game loop type stuff
 				view->CalculateFrameStats(timer.TotalTime());
 				game->DetectInput(timer.TotalTime());
-
-				//Get the iterator for our various game states and loop through their run() methods
-				list<State*>::iterator iterator;
-				for ( iterator = gameStates.begin(); iterator != gameStates.end(); iterator++)
-				{
-					(*iterator)->run(timer.DeltaTime());
-				}
-
+				//ViewInput input = engine.Update(timer.DeltaTime());
+				input.objects[0].world.rotate(XMLoadFloat3(&XMFLOAT3(1,0,0)),camx * timer.DeltaTime());
+				input.objects[0].world.rotate(XMLoadFloat3(&XMFLOAT3(0,1,0)),camy * timer.DeltaTime());
+				view->Draw(input);
+				//gameStates.front().run();
 			}
 		}
 	}
@@ -153,7 +151,7 @@ ViewData Game::ViewDataFromJson( string objectName )
 		textures[i] = txts[i].asString();
 	}
 	toReturn.texture = textures[0];
-	view->LoadTextures(textures,txts.size(),true);
+	view->LoadTextures(textures,txts.size(),false);
 
 	float tX = data.GetValue("World.Translation.x").asFloat();
 	float tY = data.GetValue("World.Translation.y").asFloat();
@@ -200,48 +198,21 @@ bool Game::InitDirectInput(HINSTANCE hInstance)
 	game->hr = game->IMouse->SetDataFormat(&c_dfDIMouse);
 	game->hr = game->IMouse->SetCooperativeLevel(game->view->hMainWnd, DISCL_EXCLUSIVE | DISCL_NOWINKEY | DISCL_FOREGROUND);
 
-
-	CreateConsoleLog(L"Geojumble Console Window");
-
 	return true;
 }
 
 void Game:: DetectInput(double time)
 {
-	//DIMOUSESTATE mouseCurrState;
+	DIMOUSESTATE mouseCurrState;
 
 	BYTE keyboardState[256];
 
 	game->IKeyboard->Acquire();
 	game->IMouse->Acquire();
 
-	view->getWinRect(&windowRect);
-	view->getCRect(&clientRect);
-	
-	//Get the cursor position in the screen
-	POINT cursorScreenPos, CursorWindowPos;
-	CursorWindowPos = POINT();
-	GetCursorPos(&cursorScreenPos);
-	
-	//We have margins on the sides of our windows, so we need to use these.
-	int caption_thickness = GetSystemMetrics(SM_CYCAPTION);
-	int border = GetSystemMetrics(SM_CXSIZEFRAME);
-
-	//Figure out its position in our window
-	CursorWindowPos.x = (cursorScreenPos.x - windowRect.left - border);
-	CursorWindowPos.y = (cursorScreenPos.y - windowRect.top - caption_thickness - border);
-
-	//game->IMouse->GetDeviceState(sizeof(DIMOUSESTATE), &mouseCurrState);
+	game->IMouse->GetDeviceState(sizeof(DIMOUSESTATE), &mouseCurrState);
 
 	game->IKeyboard->GetDeviceState(sizeof(keyboardState),(LPVOID)&keyboardState);
-	
-	//Iterate through our gamestates and pass them our input
-	list<State*>::iterator iterator;
-	for ( iterator = gameStates.begin(); iterator != gameStates.end(); iterator++)
-	{
-		(*iterator)->processKeyboardInput(keyboardState);
-		(*iterator)->processMouseInput(CursorWindowPos);
-	}
 
 	if(keyboardState[DIK_ESCAPE] & 0x80)
 		PostMessage(game->view->hMainWnd, WM_DESTROY, 0, 0);
@@ -258,23 +229,24 @@ void Game:: DetectInput(double time)
 	if(keyboardState[DIK_UP] & 0x80)
 	{
 		game->camy += 0.01;
+		
 	}
 	if(keyboardState[DIK_DOWN] & 0x80)
 	{
 		game->camy -= 0.01;
 		
 	}
-	/*if(mouseCurrState.lX != game->mouseState.lX)
+	if(mouseCurrState.lX != game->mouseState.lX)
 	{
 		game->ScaleX -= (mouseCurrState.lX * 0.001f);
 	}
 	if(mouseCurrState.lY != game->mouseState.lY)
 	{
 		game->ScaleY -= (mouseCurrState.lY * 0.001f);
-	}*/
+	}
 
 
-	//game->mouseState = mouseCurrState;
+	game->mouseState = mouseCurrState;
 
 	return;
 }
@@ -292,36 +264,7 @@ void Game::InputCleanUp()
 
 
 
-void Game::CreateConsoleLog(LPCWSTR winTitle)
-{
-	AllocConsole();
-	SetConsoleTitle(winTitle);
 
-	int hConHandle;
-	long lStdHandle;
-	FILE *fp;
-
-	// redirect unbuffered STDOUT to the console
-	lStdHandle = (long)GetStdHandle(STD_OUTPUT_HANDLE);
-	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	*stdout = *fp;
-	setvbuf( stdout, NULL, _IONBF, 0 );
-
-	// redirect unbuffered STDIN to the console
-	lStdHandle = (long)GetStdHandle(STD_INPUT_HANDLE);
-	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "r" );
-	*stdin = *fp;
-	setvbuf( stdin, NULL, _IONBF, 0 );
-
-	// redirect unbuffered STDERR to the console
-	lStdHandle = (long)GetStdHandle(STD_ERROR_HANDLE);
-	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	*stderr = *fp;
-	setvbuf( stderr, NULL, _IONBF, 0 );
-}
 
 
 #pragma region Windows Message Processing
